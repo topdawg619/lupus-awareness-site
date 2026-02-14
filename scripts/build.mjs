@@ -15,8 +15,8 @@ const ASSET_DIR = path.join(DIST_DIR, 'assets');
 const siteConfig = {
   title: 'Lupus Awareness Lab',
   tagline: 'Daily research, patient voices, and digital health breakthroughs.',
-  ctaText: 'Get the daily digest',
-  ctaLink: 'mailto:hello@lupuslab.org',
+  ctaText: 'Daily Lupus Signal',
+  ctaLink: 'mailto:hello@lupuslab.org?subject=Daily%20Lupus%20Signal',
   heroStats: [
     { label: 'Days of continuous research log', value: '112' },
     { label: 'Clinical trials on watchlist', value: '27' },
@@ -31,39 +31,86 @@ const siteConfig = {
 
 marked.setOptions({ mangle: false, headerIds: false });
 
-const css = `:root{--bg:#04070f;--panel:#101426;--border:rgba(255,255,255,.08);--accent:#c084fc;--accent2:#60a5fa;--text:#f5f7ff;--muted:#93a3c8;--highlight:#f9a8d4}
-*{box-sizing:border-box;font-family:'Space Grotesk',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
-main{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
-header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-bottom:40px}
-header h1{font-size:2.8rem;margin:0}
-header p{max-width:540px;color:var(--muted)}
-nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.95rem}
-nav a{text-decoration:none;color:var(--text);padding:8px 14px;border:1px solid transparent;border-radius:999px}
-nav a:hover{border-color:var(--accent)}
-.hero{border:1px solid var(--border);border-radius:18px;padding:28px;background:linear-gradient(120deg,rgba(96,165,250,.15),rgba(192,132,252,.1))}
-.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:24px}
-.stat{padding:14px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.02)}
-.stat .value{font-size:2rem;font-weight:600}
-.section{margin-top:50px}
-.section h2{margin-bottom:16px;font-size:1.4rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.card{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--panel);display:flex;flex-direction:column}
-.card img{width:100%;height:160px;object-fit:cover}
-.card-content{padding:18px;display:flex;flex-direction:column;gap:10px}
-.tag-list{display:flex;flex-wrap:wrap;gap:8px;font-size:.75rem}
-.tag{background:rgba(96,165,250,.15);color:var(--accent2);padding:4px 10px;border-radius:999px}
-.card a{margin-top:auto;color:var(--accent2);text-decoration:none;font-weight:600}
-.article-page{max-width:800px;margin:0 auto;padding:40px 20px 100px}
+const css = `@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500&display=swap');
+:root{--bg:#f5f8fc;--surface:#ffffff;--surface-muted:#eef4ff;--border:#e2e8f0;--border-strong:#cad4e0;--text:#0f1c3f;--muted:#5d6b8c;--accent:#31c6c0;--accent-dark:#1f9b96;--ink:#0b2447}
+*{box-sizing:border-box;font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.7}
+a{text-decoration:none;color:inherit}
+button,input{font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.page{max-width:1180px;margin:0 auto;padding:40px 24px 120px}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;color:var(--accent-dark);font-weight:600;margin:0 0 4px}
+.site-header{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:12px 0;border-bottom:1px solid var(--border)}
+.brand{display:flex;align-items:center;gap:14px}
+.brand-mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#7ee0c9);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;color:var(--surface);font-weight:600;font-size:1.1rem;box-shadow:0 8px 24px rgba(16,24,64,.18)}
+.brand-text strong{display:block;font-size:1.05rem;color:var(--ink)}
+.brand-text span{font-size:.9rem;color:var(--muted)}
+.site-nav{display:flex;gap:12px;align-items:center;font-weight:500}
+.site-nav a{padding:10px 16px;border-radius:999px;color:var(--muted)}
+.site-nav a:hover{background:var(--surface-muted);color:var(--text)}
+.primary-button{padding:12px 22px;border-radius:12px;background:var(--accent);color:#fff;font-weight:600;box-shadow:0 10px 28px rgba(49,198,192,.3)}
+.primary-button:hover{background:var(--accent-dark)}
+.feature{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:28px;margin-top:40px}
+.feature-article{background:var(--surface);border:1px solid var(--border);border-radius:28px;padding:32px 32px 40px;box-shadow:0 24px 60px rgba(15,28,63,.08)}
+.feature-meta{color:var(--muted);font-size:.95rem;margin-bottom:4px}
+.feature-article h1{font-size:2.45rem;margin:0 0 16px;color:var(--ink)}
+.feature-summary{color:#2c385f;font-size:1.05rem;margin:0 0 18px}
+.feature-article .tag-list{margin-bottom:20px}
+.feature-article img{width:100%;border-radius:24px;margin-top:28px}
+.feature-actions{display:flex;flex-wrap:wrap;gap:16px}
+.feature-widgets{display:flex;flex-direction:column;gap:18px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:24px;box-shadow:0 12px 30px rgba(15,28,63,.05)}
+.reaction-card h3{margin:0 0 14px;font-size:1.1rem}
+.reaction-buttons{display:flex;justify-content:space-between;gap:10px}
+.reaction-button{flex:1;border:1px solid var(--border);border-radius:16px;padding:12px 8px;text-align:center;font-size:.9rem;color:var(--muted);display:flex;flex-direction:column;gap:4px;align-items:center;background:var(--surface-muted)}
+.reaction-button span{font-size:1.4rem}
+.reaction-button:nth-child(3){border-color:var(--accent);background:rgba(49,198,192,.08);color:var(--accent-dark)}
+.newsletter-card h3{margin:0 0 10px;font-size:1.15rem}
+.newsletter-card p{margin:0 0 16px;color:var(--muted)}
+.input-group{display:flex;gap:12px}
+.input-group input{flex:1;padding:12px 14px;border-radius:14px;border:1px solid var(--border-strong);font-size:.95rem}
+.input-group button{border:none;padding:12px 18px;border-radius:14px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+.input-group button:hover{background:var(--accent-dark)}
+.newsletter-card small{display:block;margin-top:10px;color:var(--muted);font-size:.85rem}
+.stat-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat-card{border:1px dashed var(--border-strong);border-radius:18px;padding:16px;background:var(--surface-muted)}
+.stat-card .value{font-size:1.7rem;font-weight:700;color:var(--ink)}
+.stat-card .label{font-size:.9rem;color:var(--muted)}
+.section{margin-top:60px}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:24px}
+.section-header h2{margin:4px 0 0;font-size:1.8rem}
+.ghost-link{color:var(--accent-dark);font-weight:600}
+.post-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.post-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;box-shadow:0 16px 40px rgba(15,28,63,.05);overflow:hidden;display:flex;flex-direction:column}
+.post-card img{width:100%;height:160px;object-fit:cover}
+.post-card .card-body{padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.tag-list{display:flex;flex-wrap:wrap;gap:8px;font-size:.78rem}
+.tag{background:var(--surface-muted);color:var(--accent-dark);padding:4px 10px;border-radius:999px;font-weight:600}
+.post-card footer{display:flex;justify-content:space-between;align-items:center;padding:0 22px 22px;font-size:.9rem;color:var(--muted)}
+.post-card footer a{color:var(--accent-dark);font-weight:600}
+.downloads-card{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.downloads-card h3{margin:6px 0 10px;font-size:1.5rem}
+footer{margin-top:60px;text-align:center;color:var(--muted);font-size:.9rem;padding:32px}
+.article-page{max-width:780px;margin:0 auto;padding:40px 24px 120px}
 .article-page header{margin-bottom:24px}
-.article-page h1{margin-bottom:12px}
-.article-page .meta{color:var(--muted);font-size:.9rem}
-.article-page img{width:100%;border-radius:16px;margin:24px 0}
-article{line-height:1.8;color:#dfe6ff}
-article h2{margin-top:28px}
-footer{margin-top:60px;text-align:center;color:var(--muted);font-size:.85rem}
-@media(max-width:640px){header{flex-direction:column}}
+.article-page h1{margin:8px 0 10px;font-size:2.4rem;color:var(--ink)}
+.article-page .meta{color:var(--muted);font-size:.95rem}
+.article-page img{width:100%;border-radius:26px;margin:32px 0}
+.article-page article{line-height:1.8;color:#1e2744}
+.article-page article h2{margin-top:32px}
+.article-page a{color:var(--accent-dark);font-weight:600}
+@media(max-width:1080px){.feature{grid-template-columns:1fr}}
+@media(max-width:720px){.site-header{flex-direction:column;align-items:flex-start}.feature-article{padding:24px}.feature-actions{flex-direction:column}.reaction-buttons{flex-wrap:wrap}.input-group{flex-direction:column}.post-card img{height:200px}}
 `;
+
+const reactionButtons = [
+  { label: 'Worried', emoji: '😟' },
+  { label: 'Concerned', emoji: '😕' },
+  { label: 'OK', emoji: '🙂' },
+  { label: 'Good', emoji: '😌' },
+  { label: 'Hopeful', emoji: '🤗' }
+];
+
+marked.use({ async: false });
 
 async function loadArticles() {
   const files = await fs.readdir(CONTENT_DIR);
@@ -109,61 +156,124 @@ function baseTemplate({ title, body, extraHead = '' }) {
 }
 
 function renderIndex(articles) {
-  const heroStats = siteConfig.heroStats
-    .map((stat) => `<div class="stat"><div class="value">${stat.value}</div><div class="label">${stat.label}</div></div>`)
-    .join('');
+  if (!articles.length) {
+    return baseTemplate({
+      title: siteConfig.title,
+      body: '<div class="page"><p>No articles yet. Come back soon.</p></div>'
+    });
+  }
 
-  const cards = articles
-    .map((article) => {
-      const tagHtml = (article.tags || [])
-        .map((tag) => `<span class="tag">${tag}</span>`)
-        .join('');
-      return `<article class="card">
-        <img src="${article.heroImage}" alt="${article.title}">
-        <div class="card-content">
-          <div class="tag-list">${tagHtml}</div>
-          <h3>${article.title}</h3>
-          <p>${article.summary || ''}</p>
-          <small>${article.dateDisplay} • ${article.author}</small>
-          <a href="articles/${article.slug}/">Read report →</a>
-        </div>
-      </article>`;
-    })
-    .join('');
+  const [feature, ...rest] = articles;
 
   const nav = siteConfig.nav
     .map((item) => `<a href="${item.href}">${item.label}</a>`)
     .join('');
 
+  const featureTags = (feature.tags || [])
+    .map((tag) => `<span class="tag">${tag}</span>`)
+    .join('');
+
+  const stats = siteConfig.heroStats
+    .map((stat) => `<div class="stat-card"><div class="value">${stat.value}</div><div class="label">${stat.label}</div></div>`)
+    .join('');
+
+  const reactionMarkup = reactionButtons
+    .map((btn) => `<button class="reaction-button" type="button"><span>${btn.emoji}</span>${btn.label}</button>`)
+    .join('');
+
+  const restCards = rest
+    .map((article) => {
+      const tags = (article.tags || [])
+        .map((tag) => `<span class="tag">${tag}</span>`)
+        .join('');
+
+      return `<article class="post-card">
+        <img src="${article.heroImage}" alt="${article.title}">
+        <div class="card-body">
+          <div class="tag-list">${tags}</div>
+          <h3>${article.title}</h3>
+          <p>${article.summary || ''}</p>
+        </div>
+        <footer>
+          <span>${article.dateDisplay}</span>
+          <a href="articles/${article.slug}/">Read ⟶</a>
+        </footer>
+      </article>`;
+    })
+    .join('');
+
+  const postsBlock = restCards || '<p>No additional articles yet.</p>';
+
   const body = `
-  <main>
-    <header>
-      <div>
-        <p class="eyebrow">${siteConfig.tagline}</p>
-        <h1>${siteConfig.title}</h1>
-        <p>We translate lupus research, highlight patient advocates, and track digital health pilots every day so families can make faster decisions.</p>
+  <div class="page">
+    <header class="site-header">
+      <div class="brand">
+        <div class="brand-mark">LA</div>
+        <div class="brand-text">
+          <span class="eyebrow">${siteConfig.tagline}</span>
+          <strong>${siteConfig.title}</strong>
+        </div>
       </div>
-      <nav>${nav}</nav>
+      <nav class="site-nav">
+        ${nav}
+        <a class="primary-button" href="${siteConfig.ctaLink}">${siteConfig.ctaText}</a>
+      </nav>
     </header>
 
-    <section class="hero">
-      <h2>Today’s Signals</h2>
-      <p>Fresh notes from the field, matched with the stats that keep us accountable.</p>
-      <div class="hero-stats">${heroStats}</div>
+    <section class="feature">
+      <article class="feature-article">
+        <p class="feature-meta">Published ${feature.dateDisplay} • ${feature.author}</p>
+        <h1>${feature.title}</h1>
+        <p class="feature-summary">${feature.summary || ''}</p>
+        <div class="tag-list">${featureTags}</div>
+        <div class="feature-actions">
+          <a class="primary-button" href="articles/${feature.slug}/">Read full briefing</a>
+          <a class="ghost-link" href="mailto:hello@lupuslab.org?subject=Share%20this%20briefing&body=${encodeURIComponent(feature.title)}">Share with care team</a>
+        </div>
+        <img src="${feature.heroImage}" alt="${feature.title}">
+      </article>
+      <div class="feature-widgets">
+        <div class="panel reaction-card">
+          <h3>Choose your reaction</h3>
+          <div class="reaction-buttons">${reactionMarkup}</div>
+        </div>
+        <div class="panel newsletter-card">
+          <h3>Subscribe to our Lupus Signal</h3>
+          <p>One concise research + patient story email shipped nightly.</p>
+          <div class="input-group">
+            <input type="email" placeholder="Email address" aria-label="Email address">
+            <button type="button" onclick="window.location='mailto:hello@lupuslab.org?subject=Subscribe%20me%20to%20the%20Lupus%20Signal'">Subscribe</button>
+          </div>
+          <small>No spam. Just daily lupus intelligence.</small>
+        </div>
+        <div class="panel stat-panel">${stats}</div>
+      </div>
     </section>
 
     <section id="articles" class="section">
-      <h2>Latest briefs & patient voices</h2>
-      <div class="cards">${cards}</div>
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Daily Lupus Briefings</p>
+          <h2>More signals from the lab</h2>
+        </div>
+        <a class="ghost-link" href="mailto:hello@lupuslab.org?subject=Send%20full%20archive">View archive</a>
+      </div>
+      <div class="post-grid">${postsBlock}</div>
     </section>
 
     <section id="downloads" class="section">
-      <h2>Downloads</h2>
-      <p>Coming soon: Daily Flare Log, Family Autoimmune Map, Trial Watchlist.</p>
+      <div class="downloads-card panel">
+        <div>
+          <p class="eyebrow">Care Kit (beta)</p>
+          <h3>Printable trackers & shared decision guides</h3>
+          <p>Daily flare log, family autoimmune map, trial watchlist template, and clinic-ready summary sheets.</p>
+        </div>
+        <a class="primary-button" href="mailto:hello@lupuslab.org?subject=Care%20kit%20request">Request early access</a>
+      </div>
     </section>
-  </main>`;
+  </div>`;
 
-  return baseTemplate({ title: siteConfig.title, body, extraHead: '' }).replace('assets/styles.css', 'assets/styles.css');
+  return baseTemplate({ title: siteConfig.title, body });
 }
 
 function renderArticle(article) {
@@ -172,7 +282,7 @@ function renderArticle(article) {
     .join('');
 
   const body = `
-  <div class="article-page">
+  <div class="page article-page">
     <header>
       <p class="meta">${article.dateDisplay} • ${article.author}</p>
       <h1>${article.title}</h1>
@@ -207,7 +317,9 @@ async function build() {
   await fse.copy(DIST_DIR, DOCS_DIR);
 }
 
-build().then(() => console.log('Site built at dist/ and copied to docs/')).catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+build()
+  .then(() => console.log('Site built at dist/ and copied to docs/'))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
