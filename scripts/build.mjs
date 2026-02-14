@@ -11,6 +11,7 @@ const CONTENT_DIR = path.join(ROOT, 'content', 'articles');
 const DIST_DIR = path.join(ROOT, 'dist');
 const DOCS_DIR = path.join(ROOT, 'docs');
 const ASSET_DIR = path.join(DIST_DIR, 'assets');
+const STATIC_DIR = path.join(ROOT, 'static');
 
 const siteConfig = {
   title: 'Lupus Awareness Lab',
@@ -38,6 +39,8 @@ body{margin:0;background:var(--bg);color:var(--text);line-height:1.7}
 a{text-decoration:none;color:inherit}
 button,input{font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 .page{max-width:1180px;margin:0 auto;padding:40px 24px 120px}
+.promo-hero{margin:32px 0;border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(15,28,63,.25);border:1px solid rgba(255,255,255,.08)}
+.promo-hero img{display:block;width:100%;height:auto}
 .eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;color:var(--accent-dark);font-weight:600;margin:0 0 4px}
 .site-header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:24px;padding:12px 0;border-bottom:1px solid var(--border)}
 .brand{display:flex;align-items:center;gap:14px}
@@ -207,6 +210,9 @@ function renderIndex(articles) {
 
   const body = `
   <div class="page">
+    <section class="promo-hero">
+      <img src="assets/hero-banner.jpg" alt="Lupus Awareness Lab banner featuring families, clinicians, and researchers">
+    </section>
     <header class="site-header">
       <div class="brand">
         <div class="brand-mark">LA</div>
@@ -302,6 +308,9 @@ async function build() {
   await fse.emptyDir(DIST_DIR);
   await fse.ensureDir(ASSET_DIR);
   await fs.writeFile(path.join(ASSET_DIR, 'styles.css'), css);
+  if (await fse.pathExists(STATIC_DIR)) {
+    await fse.copy(STATIC_DIR, ASSET_DIR);
+  }
 
   const indexHtml = renderIndex(articles);
   await fs.writeFile(path.join(DIST_DIR, 'index.html'), indexHtml, 'utf-8');
