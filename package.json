@@ -1,0 +1,22 @@
+{
+  "name": "lupus-awareness-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "new:article": "node scripts/new-article.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "date-fns": "^4.1.0",
+    "fs-extra": "^11.3.3",
+    "gray-matter": "^4.0.3",
+    "inquirer": "^13.2.2",
+    "marked": "^17.0.2",
+    "slugify": "^1.6.6"
+  }
+}

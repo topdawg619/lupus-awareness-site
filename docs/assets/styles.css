@@ -1,0 +1,32 @@
+:root{--bg:#04070f;--panel:#101426;--border:rgba(255,255,255,.08);--accent:#c084fc;--accent2:#60a5fa;--text:#f5f7ff;--muted:#93a3c8;--highlight:#f9a8d4}
+*{box-sizing:border-box;font-family:'Space Grotesk',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.6}
+main{max-width:1100px;margin:0 auto;padding:32px 20px 80px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-bottom:40px}
+header h1{font-size:2.8rem;margin:0}
+header p{max-width:540px;color:var(--muted)}
+nav{display:flex;gap:18px;flex-wrap:wrap;font-size:.95rem}
+nav a{text-decoration:none;color:var(--text);padding:8px 14px;border:1px solid transparent;border-radius:999px}
+nav a:hover{border-color:var(--accent)}
+.hero{border:1px solid var(--border);border-radius:18px;padding:28px;background:linear-gradient(120deg,rgba(96,165,250,.15),rgba(192,132,252,.1))}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:24px}
+.stat{padding:14px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.02)}
+.stat .value{font-size:2rem;font-weight:600}
+.section{margin-top:50px}
+.section h2{margin-bottom:16px;font-size:1.4rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--panel);display:flex;flex-direction:column}
+.card img{width:100%;height:160px;object-fit:cover}
+.card-content{padding:18px;display:flex;flex-direction:column;gap:10px}
+.tag-list{display:flex;flex-wrap:wrap;gap:8px;font-size:.75rem}
+.tag{background:rgba(96,165,250,.15);color:var(--accent2);padding:4px 10px;border-radius:999px}
+.card a{margin-top:auto;color:var(--accent2);text-decoration:none;font-weight:600}
+.article-page{max-width:800px;margin:0 auto;padding:40px 20px 100px}
+.article-page header{margin-bottom:24px}
+.article-page h1{margin-bottom:12px}
+.article-page .meta{color:var(--muted);font-size:.9rem}
+.article-page img{width:100%;border-radius:16px;margin:24px 0}
+article{line-height:1.8;color:#dfe6ff}
+article h2{margin-top:28px}
+footer{margin-top:60px;text-align:center;color:var(--muted);font-size:.85rem}
+@media(max-width:640px){header{flex-direction:column}}
